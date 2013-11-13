@@ -3,12 +3,12 @@ package com.example.homeworkandroid3.database;
 
 
 public class Player {
-	private final int id;
+	private final int _id;
 	private String name, surname;
 	private int age, club;
 	
 	public Player(int id, String name, String surname, int age, int club) {
-		this.id = id;
+		this._id = id;
 		this.setName(name);
 		this.setSurname(surname);
 		this.setAge(age);
@@ -48,7 +48,7 @@ public class Player {
 	}
 
 	public int getId() {
-		return id;
+		return _id;
 	}
 	
 	

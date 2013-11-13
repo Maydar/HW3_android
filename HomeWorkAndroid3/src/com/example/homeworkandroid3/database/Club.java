@@ -3,13 +3,13 @@ package com.example.homeworkandroid3.database;
 import android.R.integer;
 
 public class Club {
-	private final int id;
+	private final int _id;
 	private String name, city, league;
 	private int yearOfFoundation;
 	
 	
 	public Club(int id, String name, String city, String league, int yearOfFound) {
-		this.id = id;
+		this._id = id;
 		this.name = name;
 		this.city = city;
 		this.league = league;
@@ -17,7 +17,7 @@ public class Club {
 	}
 
 	public int getId() {
-		return id;
+		return _id;
 	}
 
 	public String getName() {
