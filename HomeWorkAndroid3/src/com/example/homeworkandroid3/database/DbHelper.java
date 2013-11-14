@@ -1,8 +1,11 @@
 package com.example.homeworkandroid3.database;
 
+import java.util.Random;
+
 import com.example.homeworkandroid3.database.Contract.ClubEntry;
 import com.example.homeworkandroid3.database.Contract.PlayerEntry;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
@@ -49,9 +52,32 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 	
 	private void fillData(SQLiteDatabase db) {
-        //разбираем файл data.xml лежащий например в assets 
-            //и вставляем данные в базу	
-            //либо читаем лежащие там же sql-скрипты и выполняем с помощью все того же db.execSQL() или аналогично	
+		String [] playersName = {"Frank", "Fillip", "Vasiliy", "Ivan", "Petr", "John", "Ilkay", "Ivan", "Andrey"};
+        String [] playersSurname = {"Ribery", "Lahm", "Berezickiy", "Ivanov", "Cech", "Terry", "Gundogan", "Cordoba", "Arshavin"};
+        String [] clubNames = {"Inter", "Bayer Munich", "Zenit"};
+        String [] cities = {"Milan", "Munich", "Saint's Petersburg"};
+        String [] leagues = {"Serial A", "Bundesliga", "Russian Premiere leaague"};
+        Random random = new Random();
+        
+        for (int i = 0; i < leagues.length; i++) {
+			ContentValues cv = new ContentValues();
+			cv.put(ClubEntry.COLUMN_NAME_CLUBNAME, clubNames[random.nextInt(clubNames.length)]);
+			cv.put(ClubEntry.COLUMN_NAME_CTTY, cities[random.nextInt(cities.length)]);
+			cv.put(ClubEntry.COLUMN_NAME_LEAGUE, leagues[random.nextInt(leagues.length)]);
+			cv.put(ClubEntry.COLUMN_NAME_YEAR_OF_FOUNDATION, random.nextInt(3) + 1898);
+			db.insert(ClubEntry.TABLE_NAME, null, cv);
+		}
+        
+
+        for (int i = 0; i < playersSurname.length; i++) {
+        	ContentValues cv = new ContentValues();
+        	cv.put(PlayerEntry.COLUMN_NAME_PLAYERNAME, playersName[random.nextInt(playersName.length)]);
+        	cv.put(PlayerEntry.COLUMN_NAME_SURNAME, playersSurname[random.nextInt(playersSurname.length)]);
+        	cv.put(PlayerEntry.COLUMN_NAME_AGE, random.nextInt(20) + 21);
+        	cv.put(PlayerEntry.COLUMN_NAME_CLUB, random.nextInt(7));
+        	db.insert(PlayerEntry.TABLE_NAME, null, cv);
+		}
+        
     }
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
