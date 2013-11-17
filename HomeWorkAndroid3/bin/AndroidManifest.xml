@@ -30,6 +30,15 @@
             android:name="com.example.homeworkandroid3.fragments.PlayersFragment"
             android:label="@string/title_activity_item_fragment" >
         </activity>
+
+        <service
+            android:name="com.example.homeworkandroid3.utils.ClubUpdateService"
+            android:exported="false" >
+        </service>
+        <service
+            android:name="com.example.homeworkandroid3.utils.PlayerUpdateService"
+            android:exported="false" >
+        </service>
     </application>
 
 </manifest>

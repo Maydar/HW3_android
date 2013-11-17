@@ -1,10 +1,6 @@
 package com.example.homeworkandroid3.main;
 
 
-
-
-
-
 import com.example.homeworkandroid3.R;
 import com.example.homeworkandroid3.fragments.ClubsFragment;
 
