@@ -39,6 +39,15 @@
             android:name="com.example.homeworkandroid3.utils.PlayerUpdateService"
             android:exported="false" >
         </service>
+
+        <activity
+            android:name="com.example.homeworkandroid3.dialogues.ClubDialogue"
+            android:label="@string/title_activity_club_dialogue" >
+        </activity>
+        <activity
+            android:name="com.example.homeworkandroid3.dialogues.PlayerDialogue"
+            android:label="@string/title_activity_player_dialogue" >
+        </activity>
     </application>
 
 </manifest>

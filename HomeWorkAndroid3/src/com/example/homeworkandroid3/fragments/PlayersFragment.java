@@ -3,6 +3,7 @@ package com.example.homeworkandroid3.fragments;
 import com.example.homeworkandroid3.R;
 import com.example.homeworkandroid3.R.layout;
 import com.example.homeworkandroid3.R.menu;
+import com.example.homeworkandroid3.main.MainActivity;
 
 
 import android.os.Bundle;
@@ -40,7 +41,7 @@ public class PlayersFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int position,
 					long id) {
-				Toast.makeText(getActivity().getApplicationContext(), "in item fragment", Toast.LENGTH_SHORT).show();
+				((MainActivity)getActivity()).showPlayerDialog();
 			}
 		});
 		

@@ -6,5 +6,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_main_fragment">MainFragment</string>
     <string name="title_activity_item_fragment">ItemFragment</string>
+    <string name="title_activity_club_dialogue">ClubDialogue</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="title_activity_player_dialogue">PlayerDialogue</string>
 
 </resources>

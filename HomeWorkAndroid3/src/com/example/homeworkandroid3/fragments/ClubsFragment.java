@@ -8,6 +8,7 @@ import com.example.homeworkandroid3.R;
 import com.example.homeworkandroid3.R.drawable;
 import com.example.homeworkandroid3.R.id;
 import com.example.homeworkandroid3.R.layout;
+import com.example.homeworkandroid3.main.MainActivity;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -62,7 +63,7 @@ public class ClubsFragment extends Fragment {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View v,
 					int position, long id) {
-				Toast.makeText(getActivity().getApplicationContext(), "longclick", Toast.LENGTH_SHORT).show();
+				((MainActivity)getActivity()).showClubDialog();
 				return true;
 			}
 		});
