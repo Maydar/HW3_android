@@ -69,7 +69,8 @@ public class ClubsFragment extends Fragment implements android.support.v4.app.Lo
 		// TODO Auto-generated method stub
 		listView = (ListView)getActivity().findViewById(R.id.first_list);
 		
-		
+		android.support.v4.app.LoaderManager lm = getLoaderManager();
+        lm.initLoader(LOADER_ID, null,this);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -91,8 +92,7 @@ public class ClubsFragment extends Fragment implements android.support.v4.app.Lo
 				return true;
 			}
 		});
-		android.support.v4.app.LoaderManager lm = getLoaderManager();
-        lm.initLoader(LOADER_ID, null,this);
+		
 		super.onActivityCreated(savedInstanceState);
 	}
 	
