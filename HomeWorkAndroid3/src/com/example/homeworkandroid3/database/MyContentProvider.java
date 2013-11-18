@@ -15,7 +15,12 @@ public class MyContentProvider extends ContentProvider {
 	public static final UriMatcher sUriMatcher;
 	private static final int PLAYERS = 10;
 	private static final int CLUBS = 20;
-	public static final String AUTHORITY = "com.example.homeworkandroid3.database.provider";
+	public static final String AUTHORITY = "com.example.homeworkandroid3.database.MyContentProvider";
+	public static final Uri CONTENT_URI_CLUB = Uri.parse("content://" + AUTHORITY
+		      + "/" + ClubEntry.TABLE_NAME);
+	
+	public static final Uri CONTENT_URI_PLAYER = Uri.parse("content://" + AUTHORITY
+		      + "/" + PlayerEntry.TABLE_NAME);
 	static {
 		sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 		sUriMatcher.addURI(AUTHORITY, PlayerEntry.TABLE_NAME, PLAYERS);

@@ -8,11 +8,24 @@ import com.example.homeworkandroid3.R;
 import com.example.homeworkandroid3.R.drawable;
 import com.example.homeworkandroid3.R.id;
 import com.example.homeworkandroid3.R.layout;
+import com.example.homeworkandroid3.database.DbHelper;
+import com.example.homeworkandroid3.database.MyContentProvider;
+import com.example.homeworkandroid3.database.Contract.ClubEntry;
 import com.example.homeworkandroid3.main.MainActivity;
+import com.example.homeworkandroid3.utils.ClubAdapter;
 
+import android.R.anim;
+import android.net.Uri;
 import android.os.Bundle;
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.LoaderManager;
+import android.app.LoaderManager.LoaderCallbacks;
+import android.content.CursorLoader;
+import android.content.Loader;
+import android.database.Cursor;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -29,9 +42,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ClubsFragment extends Fragment {
+@SuppressLint("NewApi")
+public class ClubsFragment extends Fragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor>{
 
 	private PlayersFragment playersFragment;
+	static final String[] PROJECTION  = new String[] {
+		ClubEntry.COLUMN_NAME_ENTRY_ID,
+		ClubEntry.COLUMN_NAME_CLUBNAME,
+		ClubEntry.COLUMN_NAME_CTTY,
+	};
+	
+	private static final int LOADER_ID = 1;
+	private ClubAdapter adapter;
+	private ListView listView;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,8 +67,9 @@ public class ClubsFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		ListView listView = (ListView)getActivity().findViewById(R.id.first_list);
-		listView.setAdapter(new MyAdapter());
+		listView = (ListView)getActivity().findViewById(R.id.first_list);
+		
+		
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -67,59 +91,46 @@ public class ClubsFragment extends Fragment {
 				return true;
 			}
 		});
+		android.support.v4.app.LoaderManager lm = getLoaderManager();
+        lm.initLoader(LOADER_ID, null,this);
 		super.onActivityCreated(savedInstanceState);
 	}
-	private class ViewHolder {
-		public ImageView imageView;
-		public TextView  textView1;
-		public TextView textView2;
-	}
 	
-	private class MyAdapter extends BaseAdapter {
+	
+	
 		
-		@Override
-		public int getCount() {
-			// TODO Auto-generated method stub
-			
-			return 100;
-			
-		}
+		
+	
 
-		@Override
-		public Object getItem(int position) {
-			// TODO Auto-generated method stub
-			return position;
-		}
+	@Override
+	public android.support.v4.content.Loader<Cursor> onCreateLoader(int arg0,
+			Bundle arg1) {
+		Uri basUri = MyContentProvider.CONTENT_URI_CLUB;
+		//String selection = ClubEntry.COLUMN_NAME_CLUBNAME + "AND" + ClubEntry.COLUMN_NAME_CTTY;
+		return new android.support.v4.content.CursorLoader(getActivity().getApplicationContext(), basUri, PROJECTION, null, null, ClubEntry.COLUMN_NAME_CLUBNAME + " ASC");
+	}
 
-		@Override
-		public long getItemId(int position) {
-			// TODO Auto-generated method stub
-			return position;
-		}
+	
 
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			ViewHolder holder;
-			if (convertView == null) {
-				convertView = getActivity().getLayoutInflater().inflate(R.layout.item_layout, parent, false);
-				holder = new ViewHolder();
-				holder.textView1 = (TextView) convertView.findViewById(R.id.text1);
-				holder.textView2 = (TextView) convertView.findViewById(R.id.text2);
-				holder.imageView = (ImageView) convertView.findViewById(R.id.image);
-				convertView.setTag(holder);
-			}
-			else {
-				holder = (ViewHolder) convertView.getTag();
-			}
+
+	@Override
+	public void onLoadFinished(android.support.v4.content.Loader<Cursor> loader,
+			Cursor cursor) {
+		switch (loader.getId()) {
+		case LOADER_ID:
 			
-			holder.textView1.setText("example txt");
-			holder.textView2.setText("example2");
+			listView.setAdapter(new ClubAdapter(getActivity().getApplicationContext(), cursor));
+			break;
 
-			holder.imageView.setImageResource(R.drawable.ic_launcher);
-			
-			return convertView;
+		default:
+			break;
 		}
 		
+	}
+
+	@Override
+	public void onLoaderReset(android.support.v4.content.Loader<Cursor> arg0) {
+		// TODO Auto-generated method stub
 		
 	}
 }

@@ -7,12 +7,16 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
-
+	
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+     	<provider
+        	android:name="com.example.homeworkandroid3.database.MyContentProvider"
+        	android:authorities="com.example.homeworkandroid3.database.MyContentProvider">
+    	</provider>
         <activity
             android:name="com.example.homeworkandroid3.main.MainActivity"
             android:label="@string/app_name" >
