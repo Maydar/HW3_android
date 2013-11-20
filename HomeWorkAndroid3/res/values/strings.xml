@@ -10,5 +10,14 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="title_activity_player_dialogue">PlayerDialogue</string>
-
+    <string name="title_club_dialogue">Information about club</string>
+	<string name="title_player_dialogue">Information about player</string>
+	<string name="txt_name_club_dlg">Name</string>
+	<string name="txt_league_club_dlg">League</string>
+	<string name="txt_city_club_dlg">City</string>
+    <string name="txt_founded_club_dlg">Founded</string>
+    <string name="txt_name_player_dlg">Name</string>
+	<string name="txt_surname_player_dlg">Surname</string>
+	<string name="txt_age_player_dlg">Age</string>
+    <string name="txt_club_player_dlg">Club</string>
 </resources>
