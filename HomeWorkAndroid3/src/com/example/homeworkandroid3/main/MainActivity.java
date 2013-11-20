@@ -26,7 +26,7 @@ public class MainActivity extends FragmentActivity implements ClubDialogListener
 	
 	public void showPlayerDialog() {
 		DialogFragment playerDialogFragment = new PlayerDialogue();
-		playerDialogFragment.show(getSupportFragmentManager(), "PlayerDialogue");
+		playerDialogFragment.show(getSupportFragmentManager(), "playerDialogue");
 	}
 	
 	@Override

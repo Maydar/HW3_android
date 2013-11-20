@@ -23,11 +23,11 @@ public class ClubAdapter extends CursorAdapter {
 
 	@Override
 	public void bindView(View view, Context context, Cursor cursor) {
-		TextView textViewClubName = (TextView) view.findViewById(R.id.text1);
+		TextView textViewClubName = (TextView) view.findViewById(R.id.club_name);
 		textViewClubName.setText(cursor.getString(cursor.getColumnIndex(ClubEntry.COLUMN_NAME_CLUBNAME)));
 		
-		TextView textViewCity  = (TextView) view.findViewById(R.id.text2);
-		textViewCity.setText(cursor.getString(cursor.getColumnIndex(ClubEntry.COLUMN_NAME_CTTY)));
+		TextView textViewCity  = (TextView) view.findViewById(R.id.club_league);
+		textViewCity.setText(cursor.getString(cursor.getColumnIndex(ClubEntry.COLUMN_NAME_LEAGUE)));
 	}
 
 	@Override

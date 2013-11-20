@@ -49,7 +49,7 @@ public class ClubsFragment extends Fragment implements android.support.v4.app.Lo
 	static final String[] PROJECTION  = new String[] {
 		ClubEntry.COLUMN_NAME_ENTRY_ID,
 		ClubEntry.COLUMN_NAME_CLUBNAME,
-		ClubEntry.COLUMN_NAME_CTTY,
+		ClubEntry.COLUMN_NAME_LEAGUE,
 	};
 	
 	private static final int LOADER_ID = 1;

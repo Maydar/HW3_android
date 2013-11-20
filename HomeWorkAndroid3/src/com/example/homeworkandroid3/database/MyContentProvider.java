@@ -107,5 +107,11 @@ public class MyContentProvider extends ContentProvider {
 		return count;
 		
 	}
+	
+	@Override
+    public void finalize(){
+            dbHelper.close();
+            finalize();
+    }
 
 }

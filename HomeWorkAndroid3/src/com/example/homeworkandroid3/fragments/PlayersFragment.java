@@ -3,12 +3,20 @@ package com.example.homeworkandroid3.fragments;
 import com.example.homeworkandroid3.R;
 import com.example.homeworkandroid3.R.layout;
 import com.example.homeworkandroid3.R.menu;
+import com.example.homeworkandroid3.database.MyContentProvider;
+import com.example.homeworkandroid3.database.Contract.ClubEntry;
+import com.example.homeworkandroid3.database.Contract.PlayerEntry;
 import com.example.homeworkandroid3.main.MainActivity;
+import com.example.homeworkandroid3.utils.ClubAdapter;
+import com.example.homeworkandroid3.utils.PlayerAdapter;
 
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
+import android.database.Cursor;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -21,8 +29,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class PlayersFragment extends Fragment {
-
+public class PlayersFragment extends Fragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor> {
+	
+	private static final int LOADER_ID = 2;
+	static final String[] PROJECTION  = new String[] {
+		PlayerEntry.COLUMN_NAME_ENTRY_ID,
+		PlayerEntry.COLUMN_NAME_PLAYERNAME,
+		PlayerEntry.COLUMN_NAME_SURNAME,
+		PlayerEntry.COLUMN_NAME_AGE
+	};
+	private PlayerAdapter adapter;
+	private ListView listView;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -34,8 +52,10 @@ public class PlayersFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		ListView listView = (ListView)getActivity().findViewById(R.id.first_list);
-		listView.setAdapter(new MyItemAdapter());
+		listView = (ListView)getActivity().findViewById(R.id.first_list);
+		
+		android.support.v4.app.LoaderManager lm = getLoaderManager();
+        lm.initLoader(LOADER_ID, null,this);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -47,56 +67,31 @@ public class PlayersFragment extends Fragment {
 		
 		super.onActivityCreated(savedInstanceState);
 	}
-	private class ViewHolder {
-		public ImageView imageView;
-		public TextView  textView1;
-		public TextView textView2;
+
+	@Override
+	public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
+		Uri basUri = MyContentProvider.CONTENT_URI_PLAYER;
+		return new android.support.v4.content.CursorLoader(getActivity().getApplicationContext(), basUri, PROJECTION, null, null, PlayerEntry.COLUMN_NAME_PLAYERNAME + " ASC");
 	}
-	
-	private class MyItemAdapter extends BaseAdapter {
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+		switch (loader.getId()) {
+		case LOADER_ID:
+			
+			listView.setAdapter(new PlayerAdapter(getActivity().getApplicationContext(), cursor));
+			break;
+
+		default:
+			break;
+		}
 		
-		@Override
-		public int getCount() {
-			// TODO Auto-generated method stub
-			
-			return 100;
-			
-		}
+	}
 
-		@Override
-		public Object getItem(int position) {
-			// TODO Auto-generated method stub
-			return position;
-		}
-
-		@Override
-		public long getItemId(int position) {
-			// TODO Auto-generated method stub
-			return position;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			ViewHolder holder;
-			if (convertView == null) {
-				convertView = getActivity().getLayoutInflater().inflate(R.layout.item_layout, parent, false);
-				holder = new ViewHolder();
-				holder.textView1 = (TextView) convertView.findViewById(R.id.text1);
-				holder.textView2 = (TextView) convertView.findViewById(R.id.text2);
-				holder.imageView = (ImageView) convertView.findViewById(R.id.image);
-				convertView.setTag(holder);
-			}
-			else {
-				holder = (ViewHolder) convertView.getTag();
-			}
-			
-			holder.textView1.setText("example txt");
-			holder.textView2.setText("example2");
-
-			holder.imageView.setImageResource(R.drawable.ic_launcher);
-			
-			return convertView;
-		}
+	@Override
+	public void onLoaderReset(Loader<Cursor> arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
