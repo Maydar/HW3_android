@@ -86,7 +86,6 @@ public class ClubsFragment extends Fragment implements android.support.v4.app.Lo
 				int _id = cursor.getInt(cursor.getColumnIndex(ClubEntry.COLUMN_NAME_ENTRY_ID));
 				Bundle arguments = new Bundle();
 				arguments.putInt("ID", _id);
-				cursor.close();
 				playersFragment = new PlayersFragment();
 				playersFragment.setArguments(arguments);
 				
