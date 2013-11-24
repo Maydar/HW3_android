@@ -36,7 +36,8 @@ public class PlayersFragment extends Fragment implements android.support.v4.app.
 		PlayerEntry.COLUMN_NAME_ENTRY_ID,
 		PlayerEntry.COLUMN_NAME_PLAYERNAME,
 		PlayerEntry.COLUMN_NAME_SURNAME,
-		PlayerEntry.COLUMN_NAME_AGE
+		PlayerEntry.COLUMN_NAME_AGE,
+		PlayerEntry.COLUMN_NAME_CLUB,
 	};
 	private PlayerAdapter adapter;
 	private ListView listView;
@@ -53,9 +54,10 @@ public class PlayersFragment extends Fragment implements android.support.v4.app.
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		listView = (ListView)getActivity().findViewById(R.id.first_list);
-		
+		Bundle arguments = getArguments();
 		android.support.v4.app.LoaderManager lm = getLoaderManager();
-        lm.initLoader(LOADER_ID, null,this);
+        lm.initLoader(LOADER_ID, arguments,this);
+        
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -69,9 +71,11 @@ public class PlayersFragment extends Fragment implements android.support.v4.app.
 	}
 
 	@Override
-	public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
+	public Loader<Cursor> onCreateLoader(int id, Bundle arguments) {
 		Uri basUri = MyContentProvider.CONTENT_URI_PLAYER;
-		return new android.support.v4.content.CursorLoader(getActivity().getApplicationContext(), basUri, PROJECTION, null, null, PlayerEntry.COLUMN_NAME_PLAYERNAME + " ASC");
+		Integer clubId = arguments.getInt("ID");
+		String [] selectionArgs = {clubId.toString()};
+		return new android.support.v4.content.CursorLoader(getActivity().getApplicationContext(), basUri, PROJECTION, "club=?", selectionArgs, PlayerEntry.COLUMN_NAME_PLAYERNAME + " ASC");
 	}
 
 	@Override

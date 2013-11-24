@@ -15,6 +15,7 @@ import com.example.homeworkandroid3.main.MainActivity;
 import com.example.homeworkandroid3.utils.ClubAdapter;
 
 import android.R.anim;
+import android.R.integer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
@@ -25,6 +26,7 @@ import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -76,7 +78,13 @@ public class ClubsFragment extends Fragment implements android.support.v4.app.Lo
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int position,
 					long id) {
+				Cursor cursor = (Cursor) parent.getItemAtPosition(position);
+				int _id = cursor.getInt(cursor.getColumnIndex(ClubEntry.COLUMN_NAME_ENTRY_ID));
+				Bundle arguments = new Bundle();
+				arguments.putInt("ID", _id);
 				playersFragment = new PlayersFragment();
+				playersFragment.setArguments(arguments);
+				
 				android.support.v4.app.FragmentTransaction fTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 				fTransaction.replace(R.id.fragment_container, playersFragment);
 				fTransaction.addToBackStack(null);
@@ -84,10 +92,11 @@ public class ClubsFragment extends Fragment implements android.support.v4.app.Lo
 			}
 		});
 		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
-
+			
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View v,
 					int position, long id) {
+				
 				((MainActivity)getActivity()).showClubDialog();
 				return true;
 			}

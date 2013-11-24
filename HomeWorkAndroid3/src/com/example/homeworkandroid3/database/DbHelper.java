@@ -76,7 +76,7 @@ public class DbHelper extends SQLiteOpenHelper {
         	cv.put(PlayerEntry.COLUMN_NAME_PLAYERNAME, playersName[random.nextInt(playersName.length)]);
         	cv.put(PlayerEntry.COLUMN_NAME_SURNAME, playersSurname[random.nextInt(playersSurname.length)]);
         	cv.put(PlayerEntry.COLUMN_NAME_AGE, random.nextInt(20) + 21);
-        	cv.put(PlayerEntry.COLUMN_NAME_CLUB, random.nextInt(7));
+        	cv.put(PlayerEntry.COLUMN_NAME_CLUB, random.nextInt(2) + 1);
         	db.insert(PlayerEntry.TABLE_NAME, null, cv);
 		}
         

@@ -10,6 +10,7 @@ import com.example.homeworkandroid3.fragments.ClubsFragment;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.Dialog;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
@@ -17,16 +18,17 @@ import android.view.Menu;
 
 public class MainActivity extends FragmentActivity implements ClubDialogListener, PlayerDialogListener{
 	private ClubsFragment clubsFragment;
-	
+	private DialogFragment clubDialogFragment;
+	private DialogFragment playerDialogFragment;
 	
 	public void showClubDialog() {
-		DialogFragment clubDialogFragment = new ClubDialogue();
-		clubDialogFragment.show(getSupportFragmentManager(), "clubDialogue");
+		clubDialogFragment = new ClubDialogue();
+		clubDialogFragment.show(getSupportFragmentManager(), "clubDialog");
 	}
 	
 	public void showPlayerDialog() {
-		DialogFragment playerDialogFragment = new PlayerDialogue();
-		playerDialogFragment.show(getSupportFragmentManager(), "playerDialogue");
+		playerDialogFragment = new PlayerDialogue();
+		playerDialogFragment.show(getSupportFragmentManager(), "playerDialog");
 	}
 	
 	@Override
@@ -71,6 +73,12 @@ public class MainActivity extends FragmentActivity implements ClubDialogListener
 		
 	}
 	
+	public void updateClub() {
+	}
+	
+	public void updatePlayer() {
+		
+	}
 	
 
 }

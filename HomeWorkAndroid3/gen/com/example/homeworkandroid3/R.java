@@ -24,7 +24,8 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f08001a;
+        public static final int action_settings=0x7f080026;
+        public static final int age_dlg=0x7f080022;
         public static final int avatar_club=0x7f080010;
         public static final int avatar_player=0x7f080013;
         public static final int city_dlg=0x7f08000b;
@@ -36,9 +37,9 @@ public final class R {
         public static final int club_league_layout=0x7f080006;
         public static final int club_league_txt=0x7f080007;
         public static final int club_name=0x7f080011;
-        public static final int club_name_dlg=0x7f080004;
+        public static final int club_name_dlg=0x7f080005;
         public static final int club_name_layout=0x7f080003;
-        public static final int club_name_txt=0x7f080005;
+        public static final int club_name_txt=0x7f080004;
         public static final int club_year_txt=0x7f08000d;
         public static final int edit_text_dlg_club=0x7f080002;
         public static final int edit_text_dlg_player=0x7f080019;
@@ -46,10 +47,21 @@ public final class R {
         public static final int fragment_container=0x7f080000;
         public static final int league_dlg=0x7f080008;
         public static final int player_age=0x7f080015;
+        public static final int player_age_layout=0x7f080020;
+        public static final int player_age_txt=0x7f080021;
+        public static final int player_club_dlg=0x7f080025;
+        public static final int player_club_layout=0x7f080023;
+        public static final int player_club_txt=0x7f080024;
         public static final int player_dialog_fragment=0x7f080018;
         public static final int player_name=0x7f080014;
+        public static final int player_name_dlg=0x7f08001c;
+        public static final int player_name_layout=0x7f08001a;
+        public static final int player_name_txt=0x7f08001b;
         public static final int player_surname=0x7f080016;
+        public static final int player_surname_layout=0x7f08001d;
+        public static final int player_surname_txt=0x7f08001e;
         public static final int second_list=0x7f08000f;
+        public static final int surname_dlg=0x7f08001f;
         public static final int year_found_dlg=0x7f08000e;
     }
     public static final class layout {
