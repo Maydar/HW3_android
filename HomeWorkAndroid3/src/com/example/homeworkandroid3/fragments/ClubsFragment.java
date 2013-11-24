@@ -8,6 +8,7 @@ import com.example.homeworkandroid3.R;
 import com.example.homeworkandroid3.R.drawable;
 import com.example.homeworkandroid3.R.id;
 import com.example.homeworkandroid3.R.layout;
+import com.example.homeworkandroid3.database.Club;
 import com.example.homeworkandroid3.database.DbHelper;
 import com.example.homeworkandroid3.database.MyContentProvider;
 import com.example.homeworkandroid3.database.Contract.ClubEntry;
@@ -50,8 +51,10 @@ public class ClubsFragment extends Fragment implements android.support.v4.app.Lo
 	private PlayersFragment playersFragment;
 	static final String[] PROJECTION  = new String[] {
 		ClubEntry.COLUMN_NAME_ENTRY_ID,
-		ClubEntry.COLUMN_NAME_CLUBNAME,
+		ClubEntry.COLUMN_NAME_CLUBNAME,  // Как влияет на курсор ItemOnLongClickListener?
 		ClubEntry.COLUMN_NAME_LEAGUE,
+		ClubEntry.COLUMN_NAME_CTTY,
+		ClubEntry.COLUMN_NAME_YEAR_OF_FOUNDATION,
 	};
 	
 	private static final int LOADER_ID = 1;
@@ -79,9 +82,11 @@ public class ClubsFragment extends Fragment implements android.support.v4.app.Lo
 			public void onItemClick(AdapterView<?> parent, View v, int position,
 					long id) {
 				Cursor cursor = (Cursor) parent.getItemAtPosition(position);
+				
 				int _id = cursor.getInt(cursor.getColumnIndex(ClubEntry.COLUMN_NAME_ENTRY_ID));
 				Bundle arguments = new Bundle();
 				arguments.putInt("ID", _id);
+				cursor.close();
 				playersFragment = new PlayersFragment();
 				playersFragment.setArguments(arguments);
 				
@@ -96,8 +101,22 @@ public class ClubsFragment extends Fragment implements android.support.v4.app.Lo
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View v,
 					int position, long id) {
+				Cursor cursor = (Cursor) parent.getItemAtPosition(position);
 				
-				((MainActivity)getActivity()).showClubDialog();
+				int _id = cursor.getInt(cursor.getColumnIndexOrThrow(ClubEntry.COLUMN_NAME_ENTRY_ID));
+				String name = cursor.getString(cursor.getColumnIndexOrThrow(ClubEntry.COLUMN_NAME_CLUBNAME));
+				String city = cursor.getString(cursor.getColumnIndexOrThrow(ClubEntry.COLUMN_NAME_CTTY));
+				String league = cursor.getString(cursor.getColumnIndexOrThrow(ClubEntry.COLUMN_NAME_LEAGUE));
+				int founded = cursor.getInt(cursor.getColumnIndexOrThrow(ClubEntry.COLUMN_NAME_YEAR_OF_FOUNDATION));
+				
+				Bundle arguments = new Bundle();
+				arguments.putInt("ID", _id);
+				arguments.putString("NAME", name);
+				arguments.putString("CITY", city);
+				arguments.putString("LEAGUE", league);
+				arguments.putInt("FOUNDED", founded);
+				
+				((MainActivity)getActivity()).showClubDialog(arguments);
 				return true;
 			}
 		});

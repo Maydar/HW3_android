@@ -63,7 +63,23 @@ public class PlayersFragment extends Fragment implements android.support.v4.app.
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int position,
 					long id) {
-				((MainActivity)getActivity()).showPlayerDialog();
+				
+				Cursor cursor = (Cursor) parent.getItemAtPosition(position);
+				
+				int _id = cursor.getInt(cursor.getColumnIndexOrThrow(PlayerEntry.COLUMN_NAME_ENTRY_ID));
+				String name = cursor.getString(cursor.getColumnIndexOrThrow(PlayerEntry.COLUMN_NAME_PLAYERNAME));
+				String surname = cursor.getString(cursor.getColumnIndexOrThrow(PlayerEntry.COLUMN_NAME_SURNAME));
+				int age = cursor.getInt(cursor.getColumnIndexOrThrow(PlayerEntry.COLUMN_NAME_AGE));
+				int club = cursor.getInt(cursor.getColumnIndexOrThrow(PlayerEntry.COLUMN_NAME_CLUB));
+				
+				Bundle arguments = new Bundle();
+				arguments.putInt("ID", _id);
+				arguments.putString("NAME", name);
+				arguments.putString("SURNAME", surname);
+				arguments.putInt("AGE", age);
+				arguments.putInt("CLUB", club);
+				
+				((MainActivity)getActivity()).showPlayerDialog(arguments);
 			}
 		});
 		

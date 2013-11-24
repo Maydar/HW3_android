@@ -3,6 +3,7 @@ package com.example.homeworkandroid3.dialogues;
 import com.example.homeworkandroid3.R;
 import com.example.homeworkandroid3.R.layout;
 import com.example.homeworkandroid3.R.menu;
+import com.example.homeworkandroid3.database.Club;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -12,6 +13,8 @@ import android.content.DialogInterface;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.View;
+import android.widget.EditText;
 
 public class ClubDialogue extends DialogFragment {
 	public interface ClubDialogListener {
@@ -19,6 +22,8 @@ public class ClubDialogue extends DialogFragment {
 		public void onClubDialogNegativeClick(DialogFragment dialog);
 	}
 	ClubDialogListener clubDialogListener;
+	private Club club;
+	
 	
 	@Override
 	public void onAttach(Activity activity) {
@@ -37,12 +42,32 @@ public class ClubDialogue extends DialogFragment {
 		// TODO Auto-generated method stub
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		LayoutInflater inflater = getActivity().getLayoutInflater();
-		builder.setView(inflater.inflate(R.layout.club_dialogue, null))
+		
+		View view = inflater.inflate(R.layout.club_dialogue, null);
+		
+		Bundle arguments = getArguments();
+		club = new Club(arguments.getInt("ID"), arguments.getString("NAME"), arguments.getString("CITY"), arguments.getString("LEAGUE"), 
+				arguments.getInt("FOUNDED"));
+		
+		EditText name = (EditText) view.findViewById(R.id.club_name_dlg);
+		name.setText(club.getName());
+		
+		EditText city = (EditText) view.findViewById(R.id.city_dlg);
+		city.setText(club.getCity());
+		
+		EditText league = (EditText) view.findViewById(R.id.league_dlg);
+		league.setText(club.getLeague());
+		
+		EditText founded = (EditText) view.findViewById(R.id.year_found_dlg);
+		founded.setText(String.valueOf(club.getYearOfFoundation()));
+		
+		
+		builder.setView(view)
 						.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 							
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
-								// TODO Auto-generated method stub
+								clubDialogListener.onClubDialogPositiveClick(ClubDialogue.this);
 								
 							}
 						})
@@ -50,10 +75,14 @@ public class ClubDialogue extends DialogFragment {
 							
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
-								// TODO Auto-generated method stub
+								clubDialogListener.onClubDialogNegativeClick(ClubDialogue.this);
 								
 							}
 						});
 		return builder.create();
+	}
+	
+	public Club getClub() {
+		return club;
 	}
 }
